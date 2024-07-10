@@ -7,9 +7,10 @@ public class Players {
    private Teams team;
    private int age;
    private int score;
-   private String rank;
-   
-    public Players(String position, String name, int number, int age, int score, String rank) {
+   private int rank;
+   AppData appData = new AppData();
+   Scanner scanner = new Scanner(System.in);
+   public Players(String position, String name, int number, int age, int score, int rank) {
         this.position = position;
         this.name = name;
         this.number = number;
@@ -22,6 +23,9 @@ public class Players {
     }
     public void setTeam(Teams team) {
         this.team = team;
+        if(!team.getPlayers().contains(this)){
+            team.addPlayer(this);
+        }
     }
     public void setAge(int age) {
         this.age = age;
@@ -29,9 +33,14 @@ public class Players {
     public void setScore(int score) {
         this.score = score;
     }
-    public void setRank(String rank) {
+    public void setRank(int rank) {
         this.rank = rank;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+    
     public String getPosition() {
         return position;
     }
@@ -50,18 +59,25 @@ public class Players {
     public int getScore() {
         return score;
     }
-    public String getRank() {
+    public int getRank() {
         return rank;
     }
-    public String displayInformation() {
-        return "Player Information:\n" +
-                "Position: " + position + "\n" +
-                "Name: " + name + "\n" +
-                "Number: " + number + "\n" +
-                "Age: " + age + "\n" +
-                "Score: " + score + "\n" +
-                "Rank: " + rank + "\n" +
-                "Team: " + (team != null ? team.getName() : "Not assigned");
+    public void setPosition(String position) {
+        this.position = position;
+    }   
+    public  void  displayInformation() {
+       System.out.println("Player Information: ");
+            System.out.println("Position: "+getPosition());
+            System.out.println("Name: " + name);
+            System.out.println("Number: " + number);
+            System.out.println("Age: " + age);
+            System.out.println("Score: " + score );
+            System.out.println("Rank: " + rank);
+
+    if (team != null) {
+        System.out.println( "Team: " + team.getName());
+    } else {
+        System.out.println("Team is Not assigned");
     }
 }
-
+}
