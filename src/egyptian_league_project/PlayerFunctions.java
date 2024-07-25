@@ -2,7 +2,7 @@ package egyptian_league_project;
 import java.util.ArrayList;
 import java.util.Scanner;
 public class PlayerFunctions {
-    public static void addPlayer(Scanner scanner, AppData appData) {
+    public void addPlayer(Scanner scanner, AppData appData) {
     System.out.println("Enter player information:");
     System.out.print("Position: ");
     String position = scanner.next();
@@ -16,19 +16,19 @@ public class PlayerFunctions {
     int score = scanner.nextInt();
     System.out.print("Rank: ");
     int rank = scanner.nextInt();
-    Players player1 = new Players(position, name, number, age, score, rank);
+    PlayerModel player1 = new PlayerModel(position, name, number, age, score, rank);
     System.out.println("Available Teams:");
-    for (int i = 0; i < appData.teamsList.size(); i++) {
-        Teams team = appData.teamsList.get(i);
+    for (int i = 0; i < appData.getTeamsList().size(); i++) {
+        TeamModel team = appData.getTeamsList().get(i);
         System.out.println((i + 1) + ". " + team.getName());
     }
     System.out.print("Select Team (Enter team number): ");
     int teamNumber = scanner.nextInt();
     scanner.nextLine(); 
-    if (teamNumber > 0 && teamNumber <= appData.teamsList.size()) {
-        Teams selectedTeam = appData.teamsList.get(teamNumber - 1);
+    if (teamNumber > 0 && teamNumber <= appData.getTeamsList().size()) {
+        TeamModel selectedTeam = appData.getTeamsList().get(teamNumber - 1);
         player1.setTeam(selectedTeam);
-        appData.playersList.add(player1);
+        appData.getPlayersList().add(player1);
         System.out.println("Player added successfully.");
     } else {
         System.out.println("Invalid team selection. Player not added.");
@@ -37,44 +37,33 @@ public class PlayerFunctions {
         player1.getTeam().getPlayers().add(player1);
     }
 }
-    public static double calculateAveragePlayerAge(ArrayList<Players> players) {
-        double totalAge = 0;
-        for (Players player : players) {
-            totalAge += player.getAge();
-        }
-        if (!players.isEmpty()) {
-            return totalAge / players.size();
-        } else {
-            return 0;
-        }
-    }
-    public static Players getPlayerByNumber(int playerNumber) {
-    for (Players player :Egyptian_League_Project.appData.playersList) {
+      public PlayerModel getPlayerByNumber(int playerNumber) {
+    for (PlayerModel player :Egyptian_League_Project.appData.getPlayersList()) {
         if (player.getNumber() == playerNumber) {
             return player;
         }
     }
     return null; 
 }
-    public static Players getPlayerByName(String playerName) {
-    for (Players player :Egyptian_League_Project.appData.playersList) {
+    public PlayerModel getPlayerByName(String playerName) {
+    for (PlayerModel player :Egyptian_League_Project.appData.getPlayersList()) {
         if (player.getName().equalsIgnoreCase(playerName)) {
             return player;
         }
     }
     return null; 
 }
-    public static ArrayList<Players> getPlayersByTeamName(String teamName) {
-    ArrayList<Players> playersByTeam = new ArrayList<>();
-    for (Players player : Egyptian_League_Project.appData.playersList) {
+    public ArrayList<PlayerModel> getPlayersByTeamName(String teamName) {
+    ArrayList<PlayerModel> playersByTeam = new ArrayList<>();
+    for (PlayerModel player : Egyptian_League_Project.appData.getPlayersList()) {
         if (player.getTeam().getName().equalsIgnoreCase(teamName)) {
             playersByTeam.add(player);
         }
     }
     return playersByTeam;
 }
-    public static void updatePlayerInformation(String playerName, Scanner scanner) {
-    for (Players player :Egyptian_League_Project.appData.playersList) {
+    public void updatePlayerInformation(String playerName, Scanner scanner) {
+    for (PlayerModel player :Egyptian_League_Project.appData.getPlayersList()) {
         if (player.getName().equalsIgnoreCase(playerName)) {
             System.out.println("Enter the information you want to update:");
             System.out.println("1. Position");
@@ -120,4 +109,15 @@ public class PlayerFunctions {
     }
     System.out.println("player with name " + playerName + " not found. Update unsuccessful.");
 }
+    public double calculateAveragePlayerAge(ArrayList<PlayerModel> players) {
+        double totalAge = 0;
+        for (PlayerModel player : players) {
+            totalAge += player.getAge();
+        }
+        if (!players.isEmpty()) {
+            return totalAge / players.size();
+        } else {
+            return 0;
+        }
+    } 
 }

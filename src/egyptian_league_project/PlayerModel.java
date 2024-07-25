@@ -1,16 +1,13 @@
 package egyptian_league_project;
-import java.util.Scanner;
-public class Players {
+public class PlayerModel {
    private String position;
    private String name;
    private int number;
-   private Teams team;
+   private TeamModel team;
    private int age;
    private int score;
    private int rank;
-   AppData appData = new AppData();
-   Scanner scanner = new Scanner(System.in);
-   public Players(String position, String name, int number, int age, int score, int rank) {
+   public PlayerModel(String position, String name, int number, int age, int score, int rank) {
         this.position = position;
         this.name = name;
         this.number = number;
@@ -21,7 +18,7 @@ public class Players {
     public void setNumber(int number) {
         this.number = number;
     }
-    public void setTeam(Teams team) {
+    public void setTeam(TeamModel team) {
         this.team = team;
         if(!team.getPlayers().contains(this)){
             team.addPlayer(this);
@@ -50,7 +47,7 @@ public class Players {
     public int getNumber() {
         return number;
     }
-    public Teams getTeam() {
+    public TeamModel getTeam() {
         return team;
     }
     public int getAge() {

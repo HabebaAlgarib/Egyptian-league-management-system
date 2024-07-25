@@ -3,6 +3,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 public class Egyptian_League_Project {
     static AppData appData = new AppData();
+    static TeamFunctions teamFunctions =new  TeamFunctions ();
+    static MatcheFunctions matcheFunctions =new MatcheFunctions();
+    static PlayerFunctions playerFunctions=new PlayerFunctions();
+    static GeneralFunctions generalFunctions=new GeneralFunctions();
     public static void main(String[] args) {
         appData.prepareData();
         Scanner scanner = new Scanner(System.in);
@@ -112,11 +116,11 @@ public class Egyptian_League_Project {
     private static void handlePlayerOptions(String answer1, Scanner scanner, AppData appData) {
         switch (answer1) {
             case "1":
-                PlayerFunctions.addPlayer(scanner, appData);
+                playerFunctions.addPlayer(scanner, appData);
                 break;
             case "2":
                 int i = 1;
-                for (Players player : appData.playersList) {
+                for (PlayerModel player : appData.getPlayersList()) {
                     System.out.println("Player " + i);
                     player.displayInformation();
                     System.out.println();
@@ -127,7 +131,7 @@ public class Egyptian_League_Project {
                 System.out.print("Enter the player name to update information: ");
                 String playerNameToUpdate = scanner.next();
                 scanner.nextLine();
-                PlayerFunctions.updatePlayerInformation(playerNameToUpdate, scanner);
+                playerFunctions.updatePlayerInformation(playerNameToUpdate, scanner);
                 break;
             case "4":
                 System.out.println("Enter the search way (number/name/team):");
@@ -143,7 +147,7 @@ public class Egyptian_League_Project {
         case "number":
             System.out.println("Enter the player number:");
             int playerNumber = scanner.nextInt();
-            Players searchedPlayerByNumber = PlayerFunctions.getPlayerByNumber(playerNumber);
+            PlayerModel searchedPlayerByNumber = playerFunctions.getPlayerByNumber(playerNumber);
             if (searchedPlayerByNumber != null) {
                 searchedPlayerByNumber.displayInformation();
             } else {
@@ -153,7 +157,7 @@ public class Egyptian_League_Project {
         case "name":
             System.out.println("Enter the player name:");
             String playerName = scanner.next();
-            Players searchedPlayerByName = PlayerFunctions.getPlayerByName(playerName);
+            PlayerModel searchedPlayerByName = playerFunctions.getPlayerByName(playerName);
             if (searchedPlayerByName != null) {
                 searchedPlayerByName.displayInformation();
             } else {
@@ -163,11 +167,12 @@ public class Egyptian_League_Project {
         case "team":
             System.out.println("Enter the team name to search for players:");
             String teamName = scanner.next();
-            ArrayList<Players> playersInTeam = PlayerFunctions.getPlayersByTeamName(teamName);
+            ArrayList<PlayerModel> playersInTeam = playerFunctions.getPlayersByTeamName(teamName);
             if (!playersInTeam.isEmpty()) {
                 System.out.println("Players found in team '" + teamName + "':");
-                for (Players player : playersInTeam) {
+                for (PlayerModel player : playersInTeam) {
                     player.displayInformation();
+                    System.out.println();
                 }
             } else {
                 System.out.println("No players found in team '" + teamName + "'.");
@@ -180,18 +185,18 @@ public class Egyptian_League_Project {
     private static void handleMatchOptions(String answer2, Scanner scanner, AppData appData) {
         switch (answer2) {
             case "1":
-                MatcheFunctions.addMatch(scanner, appData);
+                matcheFunctions.addMatch(scanner, appData);
                 break;
             case "2":
-                MatcheFunctions.displayAllMatches(appData);
+                matcheFunctions.displayAllMatches(appData);
                 break;
             case "3":
-                System.out.println("Please enter Id of team");
+                System.out.println("Please enter Id of Match");
                 int id = scanner.nextInt();
-                MatcheFunctions.updateMatchById(id, scanner);
+                matcheFunctions.updateMatchById(id, scanner);
                 break;   
             case "4":
-                MatcheFunctions.displayHeldMatches();
+                matcheFunctions.displayHeldMatches();
                 break;
             default:
                 System.out.println("Invalid input. Please enter 1, 2, 3, or 4.");
@@ -200,43 +205,43 @@ public class Egyptian_League_Project {
     private static void handleTeamOptions(String answer3, Scanner scanner, AppData appData) {
         switch (answer3) {
             case "1":
-                TeamFunctions.addTeam(scanner, appData);
+                teamFunctions.addTeam(scanner, appData);
                 break;
             case "2":
                 System.out.println("Enter the team name:");
                 String teamName = scanner.next();
-                TeamFunctions.displayTeamInfo(teamName, appData);
+                teamFunctions.displayTeamInfo(teamName, appData);
                 break;
             case "3":
                 System.out.print("Enter the team ID to update information: ");
                 int teamIdToUpdate = scanner.nextInt();
                 scanner.nextLine();
-                TeamFunctions.updateTeamInformation(teamIdToUpdate, scanner);
+                teamFunctions.updateTeamInformation(teamIdToUpdate, scanner);
                 break;
             case "4":
                 System.out.println("Enter the team ID:");
                 int teamId = scanner.nextInt();
-                TeamFunctions.displayTeamInfoByID(teamId, appData);
+                teamFunctions.displayTeamInfoByID(teamId, appData);
                 break;
             case "5":
                 System.out.println("Enter the team Name:");
                 String teamName2 = scanner.next();
-                TeamFunctions.displayTeamInfoByName(teamName2, appData);
+                teamFunctions.displayTeamInfoByName(teamName2, appData);
                 break;
             case "6":
                 System.out.println("Enter the team name:");
                 String teamName3 = scanner.next();
-                TeamFunctions.displayTeamPlayer(teamName3, appData);
+                teamFunctions.displayTeamPlayer(teamName3, appData);
                 break;
             case "7":
                 System.out.println("Enter the team name:");
                 String teamName4 = scanner.next();
-                TeamFunctions.displayTeamScore(teamName4, appData);
+                teamFunctions.displayTeamScore(teamName4, appData);
                 break;
             case "8":
                 System.out.println("Enter the team name:");
                 String teamName5 = scanner.next();
-                TeamFunctions.displayTeamMatches(teamName5, appData);
+                teamFunctions.displayTeamMatches(teamName5, appData);
                 break;
             default:
                 System.out.println("Invalid input. Please enter 1, 2, 3, 4, 5, 6, 7, or 8.");
@@ -245,27 +250,27 @@ public class Egyptian_League_Project {
     private static void handleGeneralFunctionsOptions(String answer4, Scanner scanner, AppData appData){
         switch(answer4){
                     case "1":
-                    GeneralFunctions.displayTop3PlayersByRank();
+                    generalFunctions.displayTop3PlayersByRank();
                     break;
                     case "2":
-                    GeneralFunctions.displayTop3PlayersByGoals();
+                    generalFunctions.displayTop3PlayersByGoals();
                     break;
                     case "3":
-                    GeneralFunctions.displayTopThreeGoalkeepers();
+                    generalFunctions.displayTopThreeGoalkeepers();
                     break;
                     case "4":
-                    GeneralFunctions.displayGoalkeepersCleanSheet();
+                    generalFunctions.displayGoalkeepersCleanSheet();
                     break;
                     case "5":
                     System.out.println("Enter the date ");
                     String date = scanner.next();
-                    GeneralFunctions.displayMatchScheduledOn(date);
+                    generalFunctions.displayMatchScheduledOn(date);
                     break;
                     case "6":
-                    TeamFunctions.displayTeamsOrderedByAverageAge(appData);
+                    teamFunctions.displayTeamsOrderedByAverageAge(appData);
                     break;
                     case "7":
-                    TeamFunctions.displayTeamsOrderedByTotalScoreAsc(appData);
+                    teamFunctions.displayTeamsOrderedByTotalScoreAsc(appData);
                     break;
                     default:
                     System.out.println("Invalid input. Please enter 1, 2, 3, 4, 5, 6, or 7.");

@@ -1,18 +1,15 @@
 package egyptian_league_project;
-import java.util.Scanner;
-public class Matches {
+public class MatcheModel {
     private int id;
     private String date;
-    private Teams team1;
-    private Teams team2;
+    private TeamModel team1;
+    private TeamModel team2;
     private String footballReferee;
     private int firstTeamScore;
     private int secondTeamScore;
     private String stadiunName;
     private String status;
-    AppData appData = new AppData();
-  Scanner scanner = new Scanner(System.in);
-    public Matches(int id, String date, Teams team1, Teams team2, String footballReferee, String stadiunName) {
+    public MatcheModel(int id, String date, TeamModel team1, TeamModel team2, String footballReferee, String stadiunName) {
         this.id = id;
         this.date = date;
         this.team1 = team1;
@@ -26,10 +23,10 @@ public class Matches {
     public void setFootballReferee(String footballReferee) {
         this.footballReferee = footballReferee;
     }
-    public void setTeam1(Teams team1) {
+    public void setTeam1(TeamModel team1) {
         this.team1 = team1;
     }
-    public void setTeam2(Teams team2) {
+    public void setTeam2(TeamModel team2) {
         this.team2 = team2;
     }
 
@@ -55,10 +52,10 @@ public class Matches {
     public String getDate() {
         return date;
     }
-    public Teams getTeam1() {
+    public TeamModel getTeam1() {
         return team1;
     }
-    public Teams getTeam2() {
+    public TeamModel getTeam2() {
         return team2;
     }
     public String getFootballReferee() {

@@ -1,15 +1,13 @@
 package egyptian_league_project;
 import java.util.ArrayList;
-import java.util.Scanner;
-public class Teams {
+public class TeamModel {
   private String name;
   private int id;  
-  private ArrayList<Players> players;
+  private ArrayList<PlayerModel> players;
   private String captain;
-  private ArrayList<Matches> matches;
+  private ArrayList<MatcheModel> matches;
   private int totalScore;
-  Scanner scanner = new Scanner(System.in);
-  public Teams(String name, int id, ArrayList<Players> players, String captain, ArrayList<Matches> matches, int totalScore) {
+  public TeamModel(String name, int id, ArrayList<PlayerModel> players, String captain, ArrayList<MatcheModel> matches, int totalScore) {
         this.name = name;
         this.id = id;
         this.players = players;
@@ -17,13 +15,13 @@ public class Teams {
         this.matches = matches;
         this.totalScore = totalScore;
     }
-  public void addPlayer(Players player) {
+  public void addPlayer(PlayerModel player) {
         this.players.add(player);
         if (player.getTeam() != this) {
             player.setTeam(this);
         }
     }
-    public void setPlayers(ArrayList<Players> players) {
+    public void setPlayers(ArrayList<PlayerModel> players) {
         this.players = players;
     }
     public void setName(String name) {
@@ -32,7 +30,7 @@ public class Teams {
     public void setCaptain(String captain) {
         this.captain = captain;
     }
-    public void setMatches(ArrayList<Matches> matches) {
+    public void setMatches(ArrayList<MatcheModel> matches) {
         this.matches = matches;
     }
     public void setTotalScore(int totalScore) {
@@ -44,13 +42,13 @@ public class Teams {
     public int getId() {
         return id;
     }
-    public ArrayList<Players> getPlayers() {
+    public ArrayList<PlayerModel> getPlayers() {
         return players;
     }
     public String getCaptain() {
         return captain;
     }
-    public ArrayList<Matches> getMatches() {
+    public ArrayList<MatcheModel> getMatches() {
         return matches;
     }
     public int getTotalScore() {
